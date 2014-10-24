@@ -23,10 +23,54 @@ class CRM
 		@@menu_items.each { |key, value| puts "[#{key}]\t#{value}"}
 	end
 
+	def menu_act(user_input)
+		case user_input
+		when 1 then crm_add
+		when 2 then crm_modify
+		when 3 then crm_display_all
+		when 4 then crm_display_one
+		when 5 then crm_attrib
+		when 6 then crm_delete
+		else
+			puts "\nThank you for using the CRM!\n=============\n| Good bye! |\n============="
+			return
+		end
+	end
+
 
 	def start
+		
+		# Display menu and take input from user
+
 		puts "Welcome to BitMaker Labs CRM\n============================"
+		
 		menu_maker
+		
+		print "Please select an option: "
+		
+		input = gets.chomp.to_i
+
+		menu_act(input)
+
+	end
+
+	def crm_add
+		
+	end
+	def crm_modify
+		
+	end
+	def crm_display_all
+		
+	end
+	def crm_display_one
+		
+	end
+	def crm_attrib
+		
+	end
+	def crm_delete
+		
 	end
 end
 
