@@ -4,6 +4,9 @@
 # Requires  rolodex.rb, contact.rb
 #
 
+require_relative './contact.rb'
+require_relative './rolodex.rb'
+
 class CRM
 	def initialize
 		
