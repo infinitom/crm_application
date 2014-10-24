@@ -22,7 +22,8 @@ class CRM
 		"6" => "Delete a contact",
 		"7" => "Exit"
 	}
-
+	
+	@@rolodex = Rolodex.new
 	
 
 	def menu_maker
@@ -35,13 +36,20 @@ class CRM
 
 		puts "Welcome to BitMaker Labs CRM\n============================"
 		
-		menu_maker
-		
-		print "Please select an option: "
-		
-		input = gets.chomp.to_i
+		while true
+			menu_maker
 
-		menu_action(input)
+			print "Please select an option: "
+
+			input = gets.chomp.to_i
+			if input > 6
+				puts "\nThank you for using the CRM!\n=============".green
+				puts "| " + "Good bye!".red + " |\n============="
+				return
+			else
+				menu_action(input)
+			end
+		end
 
 	end
 
@@ -54,7 +62,7 @@ class CRM
 		when 5 then crm_attrib
 		when 6 then crm_delete
 		else
-			puts "\nThank you for using the CRM!\n=============\n| Good bye! |\n============="
+			puts "Unrecognized command! Please try again."
 			return
 		end
 	end
@@ -66,29 +74,59 @@ class CRM
 		
 		input = gets.chomp.split(', ')
 		
-		contact = Contact.new(input)
+		contact = Contact.new(input) #create the contact object
+		
+		@@rolodex.add(contact) # add to the rolodex
 		
 	end
-
-	def crm_modify
-		
-	end
-
+	
 	def crm_display_all
-		
+		puts "\nDisplaying all Contacts\n-----------------------".blue
+		lister(nil)
+		# @rolodex.contacts.each do |contact|
+  #     		puts "ID\tName\t\t\tEmail"
+  #     		puts "#{contact.id}\t#{contact.first_name} #{contact.last_name}\t\t<#{contact.email}>"
+		# end
 	end
+
 
 	def crm_display_one
+		print "Enter an ID of a contact to view: "
+		id = gets.chomp
+
+		lister(id.to_i) if @@olodex.contacts.to_s.include?(id)
+
+	end
+	
+	def crm_modify
+		puts "\nModify a contact\n-------------".blue
+		puts "Please enter a contact in the following comma separated format:"
 		
 	end
+
 
 	def crm_attrib
 		
 	end
 
+
 	def crm_delete
 		
 	end
+
+	def lister(id)
+		puts "ID\tName\t\t\tEmail"
+		puts "--\t----\t\t\t-----"
+		if id == nil
+			@@rolodex.contacts.each { |contact| puts "#{contact.id}\t#{contact.first_name} #{contact.last_name}\t\t<#{contact.email}>" }
+		else
+			@@rolodex.contacts.each do |contact|				
+				puts "#{contact.id}\t#{contact.first_name} #{contact.last_name}\t\t<#{contact.email}>" if id == contact.id
+			end
+		end
+		
+	end
+
 end
 
 

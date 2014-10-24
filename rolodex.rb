@@ -5,4 +5,18 @@
 #
 
 class Rolodex
+	attr_accessor :contacts
+	
+	@@index = 1000
+
+	def initialize
+		@contacts = []
+	end
+
+	def add(contact)
+		contact.id = @@index
+    	@@index += 1
+		@contacts << contact
+	end
+
 end

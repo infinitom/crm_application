@@ -5,7 +5,7 @@
 #
 
 class Contact
-	attr_accessor :first_name, :last_name, :email, :notes
+	attr_accessor :id, :first_name, :last_name, :email, :notes
 
 	def initialize(incoming)
 		name = incoming[0].split(' ') #split the full name using the space
