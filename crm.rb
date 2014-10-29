@@ -46,6 +46,7 @@ class CRM
 		puts "Welcome to BitMaker Labs CRM\n============================"
 		
 		while true
+			puts "\n"
 			menu_maker(@@menu_items)
 
 			print "\nPlease select an option: "
@@ -56,13 +57,13 @@ class CRM
 				puts "| " + "Good bye!".red + " |\n============="
 				return
 			else
-				menu_action(input)
+				main_menu_action(input)
 			end
 		end
 
 	end
 
-	def menu_action(user_input)
+	def main_menu_action(user_input)
 		case user_input
 		when 1 then crm_add
 		when 2 then crm_modify
@@ -70,6 +71,20 @@ class CRM
 		when 4 then crm_display_one
 		when 5 then crm_attrib
 		when 6 then crm_delete
+		else
+			puts "Unrecognized command!".red
+			puts "Please try again.".green
+			return
+		end
+	end
+
+	def attrib_menu_action(user_input)
+		case user_input
+		when 1 then lister(nil,"ID")
+		when 2 then lister(nil,"First Name")
+		when 3 then lister(nil,"Last Name")
+		when 4 then lister(nil,"Email")
+		when 5 then lister(nil,"Notes")
 		else
 			puts "Unrecognized command!".red
 			puts "Please try again.".green
@@ -91,8 +106,8 @@ class CRM
 	end
 	
 	def crm_display_all
-		puts "\nDisplaying all Contacts\n-----------------------".blue
-		lister(nil)
+		puts "\nDisplaying all Contacts & Attributes\n-----------------------".blue
+		lister(nil,"all")
 		# @rolodex.contacts.each do |contact|
   #     		puts "ID\tName\t\t\tEmail"
   #     		puts "#{contact.id}\t#{contact.first_name} #{contact.last_name}\t\t<#{contact.email}>"
@@ -104,7 +119,7 @@ class CRM
 		print "Enter an ID of a contact to view: "
 		id = gets.chomp
 
-		lister(id.to_i) if @@rolodex.contacts.to_s.include?(id)
+		lister(id.to_i,"all") if @@rolodex.contacts.to_s.include?(id)
 
 	end
 	
@@ -119,6 +134,7 @@ class CRM
 		#show ID, First Name, Last Name, Email or Notes
 
 		while true
+			puts "\n"
 			menu_maker(@@attribute_items)
 
 			print "\nPlease select an option: "
@@ -128,7 +144,7 @@ class CRM
 				puts "\nReturning to main menu!\n".green
 				return
 			else
-				menu_action(input)
+				attrib_menu_action(input)
 			end
 		end
 
@@ -140,11 +156,20 @@ class CRM
 		
 	end
 
-	def lister (id)
-		puts "ID\tName\t\t\tEmail"
-		puts "--\t----\t\t\t-----"
+	def lister (id, attribute)
+
 		if id == nil
-			@@rolodex.contacts.each { |contact| puts "#{contact.id}\t#{contact.first_name} #{contact.last_name}\t\t<#{contact.email}>" }
+			@@rolodex.contacts.each do |contact|
+			 	case attribute
+			 	when "ID" then puts "#{contact.id}"
+			 	when "First Name" then puts "#{contact.first_name}"
+			 	when "Last Name" then puts "#{contact.last_name}"
+			 	when "Email" then puts "#{contact.email}"
+			 	when "Notes" then puts "#{contact.notes}"
+			 	else
+			 		puts "#{contact.id}\t#{contact.first_name} #{contact.last_name}\t\t<#{contact.email}>" 
+			 	end			 	
+			end
 		else
 			@@rolodex.contacts.each do |contact|				
 				puts "#{contact.id}\t#{contact.first_name} #{contact.last_name}\t\t<#{contact.email}>" if id == contact.id
