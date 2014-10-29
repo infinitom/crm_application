@@ -24,11 +24,12 @@ class CRM
 	}
 	
 	@@attribute_items = {
-		"1" => "First Name",
-		"2" => "Last Name`",
-		"3" => "Email",
-		"4" => "Notes",
-		"5" => "Exit"
+		"1" => "ID",
+		"2" => "First Name",
+		"3" => "Last Name`",
+		"4" => "Email",
+		"5" => "Notes",
+		"6" => "Exit"
 	}
 
 	@@rolodex = Rolodex.new
@@ -47,7 +48,7 @@ class CRM
 		while true
 			menu_maker(@@menu_items)
 
-			print "Please select an option: "
+			print "\nPlease select an option: "
 
 			input = gets.chomp.to_i
 			if input > 6
@@ -116,6 +117,21 @@ class CRM
 
 	def crm_attrib
 		#show ID, First Name, Last Name, Email or Notes
+
+		while true
+			menu_maker(@@attribute_items)
+
+			print "\nPlease select an option: "
+
+			input = gets.chomp.to_i
+			if input > 5
+				puts "\nReturning to main menu!\n".green
+				return
+			else
+				menu_action(input)
+			end
+		end
+
 		
 	end
 
