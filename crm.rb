@@ -57,13 +57,13 @@ class CRM
 				puts "| " + "Good bye!".red + " |\n============="
 				return
 			else
-				main_menu_action(input)
+				main_menu(input)
 			end
 		end
 
 	end
 
-	def main_menu_action(user_input)
+	def main_menu(user_input)
 		case user_input
 		when 1 then crm_add
 		when 2 then crm_modify
@@ -78,17 +78,25 @@ class CRM
 		end
 	end
 
-	def attrib_menu_action(user_input)
-		case user_input
-		when 1 then lister(nil,"ID")
-		when 2 then lister(nil,"First Name")
-		when 3 then lister(nil,"Last Name")
-		when 4 then lister(nil,"Email")
-		when 5 then lister(nil,"Notes")
+	def attrib_menu(user_input, action)
+		
+		if action == "modify"
+
+		elsif action == "delete"
+
 		else
-			puts "Unrecognized command!".red
-			puts "Please try again.".green
-			return
+			case user_input
+				when 1 then lister(nil,"ID")
+				when 2 then lister(nil,"First Name")
+				when 3 then lister(nil,"Last Name")
+				when 4 then lister(nil,"Email")
+				when 5 then lister(nil,"Notes")
+				else
+					puts "Unrecognized command!".red
+					puts "Please try again.".green
+					return
+			end
+
 		end
 	end
 
@@ -123,12 +131,6 @@ class CRM
 
 	end
 	
-	def crm_modify
-		puts "\nModify a contact\n-------------".blue
-		puts "Please enter a contact in the following comma separated format:"
-		
-	end
-
 
 	def crm_attrib
 		#show ID, First Name, Last Name, Email or Notes
@@ -144,15 +146,50 @@ class CRM
 				puts "\nReturning to main menu!\n".green
 				return
 			else
-				attrib_menu_action(input)
+				attrib_menu(input, "list")
 			end
 		end
 
 		
 	end
+	
+	def crm_modify
+		puts "\nModify\n-------------".blue
+		puts "Please select an attribute to modify by:"
+		while true
+			puts "\n"
+			menu_maker(@@attribute_items)
 
+			print "\nPlease select an option: "
+
+			input = gets.chomp.to_i
+			if input > 5
+				puts "\nReturning to main menu!\n".green
+				return
+			else
+				attrib_menu(input, "modify")
+			end
+		end
+	end
 
 	def crm_delete
+		puts "\nModify\n-------------".blue
+		puts "Please select an attribute to delete by:"
+		
+		while true
+			puts "\n"
+			menu_maker(@@attribute_items)
+
+			print "\nPlease select an option: "
+
+			input = gets.chomp.to_i
+			if input > 5
+				puts "\nReturning to main menu!\n".green
+				return
+			else
+				attrib_menu(input, "modify")
+			end
+		end
 		
 	end
 

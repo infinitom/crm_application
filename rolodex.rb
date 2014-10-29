@@ -19,4 +19,5 @@ class Rolodex
 		@contacts << contact
 	end
 
+
 end
