@@ -26,10 +26,9 @@ class CRM
 	@@attribute_items = {
 		"1" => "ID",
 		"2" => "First Name",
-		"3" => "Last Name`",
+		"3" => "Last Name",
 		"4" => "Email",
-		"5" => "Notes",
-		"6" => "Exit"
+		"5" => "Exit"
 	}
 
 	@@rolodex = Rolodex.new
@@ -81,16 +80,66 @@ class CRM
 	def attrib_menu(user_input, action)
 		
 		if action == "modify"
+			case user_input
+				when 1
+					print "Enter Old ID: "
+					old_id = gets.chomp.to_i
+					print "Enter New ID: "	
+					new_id = gets.chomp.to_i
+					@@rolodex.modify("ID", old_id, new_id)
+				when 2
+					print "Enter Old First Name: "
+					old_fname = gets.chomp
+					print "Enter New First Name: "	
+					new_fname = gets.chomp
+					@@rolodex.modify("First Name", old_fname, new_fname)
+				when 3
+					print "Enter Old Last Name: "
+					old_lname = gets.chomp
+					print "Enter New Last Name: "	
+					new_lname = gets.chomp
+					@@rolodex.modify("Last Name", old_lname, new_lname)
+				when 4
+					print "Enter Old Email: "
+					old_email = gets.chomp
+					print "Enter New Email: "	
+					new_email = gets.chomp
+					@@rolodex.modify("Email", old_email, new_email)
+				else
+					puts "Unrecognized command!".red
+					puts "Please try again.".green
+					return
+			end
 
 		elsif action == "delete"
-
+			case user_input
+				when 1
+					print "By ID: "
+					by_id = gets.chomp.to_i
+					@@rolodex.delete("ID", by_id)
+				when 2
+					print "By First Name: "
+					by_fname = gets.chomp
+					@@rolodex.delete("First Name", by_fname)
+				when 3
+					print "By Last Name: "
+					by_lname = gets.chomp
+					@@rolodex.delete("Last Name", by_lname)
+				when 4
+					print "By Email: "
+					by_email = gets.chomp
+					@@rolodex.delete("Email", by_email)
+				else
+					puts "Unrecognized command!".red
+					puts "Please try again.".green
+					return
+			end
 		else
 			case user_input
 				when 1 then lister(nil,"ID")
 				when 2 then lister(nil,"First Name")
 				when 3 then lister(nil,"Last Name")
-				when 4 then lister(nil,"Email")
-				when 5 then lister(nil,"Notes")
+				when 4 then lister(nil,"Email")				
 				else
 					puts "Unrecognized command!".red
 					puts "Please try again.".green
@@ -142,7 +191,7 @@ class CRM
 			print "\nPlease select an option: "
 
 			input = gets.chomp.to_i
-			if input > 5
+			if input > 4
 				puts "\nReturning to main menu!\n".green
 				return
 			else
@@ -163,7 +212,7 @@ class CRM
 			print "\nPlease select an option: "
 
 			input = gets.chomp.to_i
-			if input > 5
+			if input > 4
 				puts "\nReturning to main menu!\n".green
 				return
 			else
@@ -173,7 +222,7 @@ class CRM
 	end
 
 	def crm_delete
-		puts "\nModify\n-------------".blue
+		puts "\nDelete\n-------------".blue
 		puts "Please select an attribute to delete by:"
 		
 		while true
@@ -183,11 +232,11 @@ class CRM
 			print "\nPlease select an option: "
 
 			input = gets.chomp.to_i
-			if input > 5
+			if input > 4
 				puts "\nReturning to main menu!\n".green
 				return
 			else
-				attrib_menu(input, "modify")
+				attrib_menu(input, "delete")
 			end
 		end
 		
