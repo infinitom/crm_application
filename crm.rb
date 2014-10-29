@@ -23,11 +23,19 @@ class CRM
 		"7" => "Exit"
 	}
 	
+	@@attribute_items = {
+		"1" => "First Name",
+		"2" => "Last Name`",
+		"3" => "Email",
+		"4" => "Notes",
+		"5" => "Exit"
+	}
+
 	@@rolodex = Rolodex.new
 	
 
-	def menu_maker
-		@@menu_items.each { |key, value| puts "[#{key}]\t#{value}"}
+	def menu_maker(items)
+		items.each { |key, value| puts "[#{key}]\t#{value}"}
 	end
 
 	def start
@@ -37,7 +45,7 @@ class CRM
 		puts "Welcome to BitMaker Labs CRM\n============================"
 		
 		while true
-			menu_maker
+			menu_maker(@@menu_items)
 
 			print "Please select an option: "
 
@@ -62,7 +70,8 @@ class CRM
 		when 5 then crm_attrib
 		when 6 then crm_delete
 		else
-			puts "Unrecognized command! Please try again."
+			puts "Unrecognized command!".red
+			puts "Please try again.".green
 			return
 		end
 	end
@@ -94,7 +103,7 @@ class CRM
 		print "Enter an ID of a contact to view: "
 		id = gets.chomp
 
-		lister(id.to_i) if @@olodex.contacts.to_s.include?(id)
+		lister(id.to_i) if @@rolodex.contacts.to_s.include?(id)
 
 	end
 	
@@ -106,6 +115,7 @@ class CRM
 
 
 	def crm_attrib
+		#show ID, First Name, Last Name, Email or Notes
 		
 	end
 
@@ -114,7 +124,7 @@ class CRM
 		
 	end
 
-	def lister(id)
+	def lister (id)
 		puts "ID\tName\t\t\tEmail"
 		puts "--\t----\t\t\t-----"
 		if id == nil
